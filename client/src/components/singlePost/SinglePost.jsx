@@ -1,31 +1,54 @@
-import './singlepost.css'
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './singlepost.css';
+import { baseUrl } from '../../utils/variables';
 
 const SinglePost = () => {
-  return (
-    <div className='singlepost'>
-        <div className="singlePostWrapper">
-            <img className='singlePostImage' src="https://images.pexels.com/photos/2535206/pexels-photo-2535206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-            alt="" />
+    const location = useLocation();
+    const path = location.pathname.split("/")[2];
+    const [post, setPost] = useState({});
 
-            <h1 className="singlePostTitle">
-                Lorenm Iosum is my name. 
-                <div className="singlePostEdit">
-                    <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
-                    <i className="singlePostIcon fa-regular fa-trash-can"></i>
+    useEffect(() =>{
+        const getPost = async () => {
+            const res = await axios.get(baseUrl+'/posts/'+path);
+            setPost(res.data);
+        }
+        getPost();
+    },[path])
+    return (
+        <div className='singlepost'>
+            <div className="singlePostWrapper">
+                {post.photo && (
+                    <img 
+                    className='singlePostImage' 
+                    src= {post.photo}
+                    alt="" 
+                    />
+                )}
+
+                <h1 className="singlePostTitle">
+                    {post.title} 
+                    <div className="singlePostEdit">
+                        <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
+                        <i className="singlePostIcon fa-regular fa-trash-can"></i>
+                    </div>
+                </h1>
+                <div className="singlePostInfo">
+                    <span className='singlePostAuthor'>
+                        Author: 
+                        <Link className='link' to={`/?user=${post.username}`}>
+                            <b>{post.username}</b>
+                        </Link>
+                    </span>
+                        
+                    <span className='singlePostDate'>{new Date(post.createdAt).toDateString}</span>
                 </div>
-            </h1>
-            <div className="singlePostInfo">
-                <span className='singlePostAuthor'>Author: <b>Prabin Dhakal</b></span>
-                <span className='singlePostDate'>1 hour ago</span>
+                <p className='singlePostDescription'>{post.desc}</p>
             </div>
-            <p className='singlePostDescription'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente commodi odit beatae vero cum consequatur accusantium fuga unde, ad repellat ut exercitationem ipsam molestias tempore illum. Architecto consequuntur ut vel.
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente commodi odit beatae vero cum consequatur accusantium fuga unde, ad repellat ut exercitationem ipsam molestias tempore illum. Architecto consequuntur ut vel.
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente commodi odit beatae vero cum consequatur accusantium fuga unde, ad repellat ut exercitationem ipsam molestias tempore illum. Architecto consequuntur ut vel.
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente commodi odit beatae vero cum consequatur accusantium fuga unde, ad repellat ut exercitationem ipsam molestias tempore illum. Architecto consequuntur ut vel.
-            </p>
         </div>
-    </div>
-  )
+    )
 }
 
 export default SinglePost

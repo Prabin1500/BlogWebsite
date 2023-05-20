@@ -1,7 +1,20 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import "./sidebar.css";
+import { baseUrl } from '../../utils/variables';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
+    const [cats, setCats] = useState([]);
+
+    useEffect(() => {
+        const getCats = async () =>{
+            const res = await axios.get(baseUrl+'/categories');
+            setCats(res.data);
+        }
+        getCats();
+    }, []);
   return (
     <div className='sidebar'>
         <div className="sidebarItem">
@@ -14,12 +27,13 @@ const Sidebar = () => {
         <div className="sidebarItem">
             <span className="sidebarTitle">Categories</span>
             <ul className="sidebarList">
-                <li className="sidebarListItem">Life</li>
-                <li className="sidebarListItem">Music</li>
-                <li className="sidebarListItem">Style</li>
-                <li className="sidebarListItem">Sport</li>
-                <li className="sidebarListItem">Cinema</li>
-                <li className="sidebarListItem">Tech</li>
+                
+                {cats.map((c) =>(
+                    <Link to={`/?cat=${c.name}`} className="link">
+                        <li key={c.name} className="sidebarListItem">{c.name}</li>
+                    </Link>
+                ))}
+                
             </ul>
         </div>
         <div className="sidebarItem">
