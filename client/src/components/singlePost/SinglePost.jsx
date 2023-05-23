@@ -5,6 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 import './singlepost.css';
 import { baseUrl } from '../../utils/variables';
 import { Context } from '../../context/Context';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const SinglePost = () => {
     const location = useLocation();
@@ -14,6 +16,7 @@ const SinglePost = () => {
     const {user} = useContext(Context);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
+    const [cat, setCat] = useState("");
     const [updateMode, setUpdataMode] = useState(false);
 
     useEffect(() =>{
@@ -22,6 +25,7 @@ const SinglePost = () => {
             setPost(res.data);
             setTitle(res.data.title);
             setDesc(res.data.desc);
+            setCat(res.data.categories[0]);
         }
         getPost();
     },[path])
@@ -48,6 +52,11 @@ const SinglePost = () => {
         } catch (error) {
             
         }
+    };
+
+    const getText = (html) => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent;
     };
 
     return (
@@ -81,23 +90,27 @@ const SinglePost = () => {
                 ) }
                 
                 <div className="singlePostInfo">
-                    <span className='singlePostAuthor'>
-                        Author: 
-                        <Link className='link' to={`/?user=${post.username}`}>
-                            <b>{post.username}</b>
-                        </Link>
-                    </span>
+                    <div className='nameCat'>
+                        <span className='singlePostAuthor'>
+                            Author: 
+                            <Link className='link' to={`/?user=${post.username}`}>
+                                <b> {post.username}</b>
+                            </Link>
+                        </span>
+                        <span>Category: <b>{post.categories}</b></span>
+                    </div>
                         
                     <span className='singlePostDate'>{new Date(post.createdAt).toDateString()}</span>
                 </div>
                 {updateMode ? (
-                    <textarea 
-                        className='singlePostDescriptionInput' 
+                    <ReactQuill
+                        className='singlePostDescriptionInput'
+                        theme="snow"
                         value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                    /> 
+                        onChange={setDesc}
+                    />
                 ):(
-                    <p className='singlePostDescription'>{desc}</p>
+                    <p className='singlePostDescription'>{getText(desc)}</p>
                 )}
                 {updateMode &&
                     <button className="singlePostButon" onClick={handleUpdate}>Update</button>

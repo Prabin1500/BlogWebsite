@@ -4,6 +4,12 @@ import {Link} from 'react-router-dom';
 const Post = ({post}) => {
 
   const PF = "http://localhost:5000/images/"
+
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <div className="post">
       {post.photo && 
@@ -27,7 +33,7 @@ const Post = ({post}) => {
                 {new Date(post.createdAt).toDateString()}
             </span>
         </div>
-        <p className="postDescription">{post.desc}</p>
+        <p className="postDescription">{getText(post.desc)}</p>
     </div>
   )
 }

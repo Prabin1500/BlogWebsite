@@ -10,9 +10,10 @@
 }
 
 .singlePostImage{
-    width: 100%;
+    width: 70%;
     height: 300px;
     border-radius: 5px;
+    align-self: center;
     object-fit: cover;
 }
 
@@ -61,6 +62,11 @@
     font-size: 16px;
     font-family: 'Varela Round', sans-serif;
     color: #b39656;
+}
+
+.nameCat{
+    display: flex;flex-direction: column;
+    gap: 10px;
 }
 
 .singlePostDescription{
