@@ -55,7 +55,8 @@ npm start
 ````
 
 ### 3. Open Frontend
-Open client/index.html in a browser or serve it using a local server
+Open client/index.html in a browser or serve it using a local server.
+
   
 ## 📌 Future Improvements
 - Add user authentication (login/signup)
