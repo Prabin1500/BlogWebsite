@@ -49,11 +49,22 @@ Navigate to the backend folder and install the dependencies:
 cd api
 npm install
 
-Create a .env file inside the api/ folder and add the following:
 MONGO_URI=your_mongodb_connection_string
 PORT=5000
-
-Start the server:
 npm start
 ````
 
+### 3. Open Frontend
+- Open client/index.html in a browser or serve it using a local server
+  
+📌 Future Improvements
+Add user authentication (login/signup)
+
+Add comment functionality on posts
+
+Convert frontend to React.js for a more dynamic UI
+
+Deploy using platforms like Render, Netlify, or Vercel
+
+📄 License
+This project is licensed under the MIT License.
