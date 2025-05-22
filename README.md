@@ -58,13 +58,10 @@ npm start
 - Open client/index.html in a browser or serve it using a local server
   
 📌 Future Improvements
-Add user authentication (login/signup)
-
-Add comment functionality on posts
-
-Convert frontend to React.js for a more dynamic UI
-
-Deploy using platforms like Render, Netlify, or Vercel
+- Add user authentication (login/signup)
+- Add comment functionality on posts
+- Convert frontend to React.js for a more dynamic UI
+- Deploy using platforms like Render, Netlify, or Vercel
 
 📄 License
-This project is licensed under the MIT License.
+- This project is licensed under the MIT License.
