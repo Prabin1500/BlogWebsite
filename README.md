@@ -39,6 +39,7 @@ A full-stack blog platform where users can create, read, update, and delete blog
 ```bash
 git clone https://github.com/Prabin1500/BlogWebsite.git
 cd BlogWebsite
+````
 
 ### 2. Setup Backend
 
@@ -54,4 +55,5 @@ PORT=5000
 
 Start the server:
 npm start
+````
 
